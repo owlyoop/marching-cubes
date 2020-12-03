@@ -30,15 +30,15 @@ MonoBehaviour:
       ridgedNoiseSettings:
         onlyNegativeValues: 0
         onlyPositiveValues: 0
-        numOctaves: 3
-        lacunarity: 1.7
-        persistance: 0.4
-        noiseScale: 2
+        numOctaves: 5
+        lacunarity: 1.44
+        persistance: 0.5
+        noiseScale: 0.64
         noiseWeight: 14
         weightMultiplier: 6
         finalStrength: 1
         floorOffset: 0
-        center: {x: 11, y: 2, z: 17}
+        center: {x: -2020, y: 2200, z: 178}
         seed: 0
       levelNoiseSettings:
         NumChunksHeight: 1
@@ -61,15 +61,15 @@ MonoBehaviour:
       ridgedNoiseSettings:
         onlyNegativeValues: 1
         onlyPositiveValues: 0
-        numOctaves: 5
-        lacunarity: 1.5
+        numOctaves: 2
+        lacunarity: 1.8
         persistance: 0.4
-        noiseScale: 1.3
-        noiseWeight: 12
-        weightMultiplier: 3
-        finalStrength: 1
+        noiseScale: 1.5
+        noiseWeight: 14
+        weightMultiplier: 4
+        finalStrength: 0.8
         floorOffset: 0
-        center: {x: -14.6, y: 0, z: -2.74}
+        center: {x: 181, y: -2555, z: 7685}
         seed: 0
       levelNoiseSettings:
         NumChunksHeight: 2
@@ -103,6 +103,6 @@ MonoBehaviour:
         center: {x: 0, y: 0, z: 0}
         seed: 0
       levelNoiseSettings:
-        NumChunksHeight: 1
-        yThreshold: 4
+        NumChunksHeight: 4
+        yThreshold: 3
         strength: 1

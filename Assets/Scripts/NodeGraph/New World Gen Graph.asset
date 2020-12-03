@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7678233441550114467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01c2feb4cd0f1c49b41cb0d5cb56599, type: 3}
+  m_Name: Master World Gen
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -18, y: -111.5}
+  ports:
+    keys:
+    - finalNoiseValue
+    values:
+    - _fieldName: finalNoiseValue
+      _node: {fileID: -7678233441550114467}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: noiseValue
+        node: {fileID: 5048640445056694634}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  numChunksWidth: 0
+  numChunksLength: 0
+  numChunksHeight: 0
+  finalNoiseValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e903208b7cd8d9b469cfd804ac1816eb, type: 3}
+  m_Name: New World Gen Graph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -7678233441550114467}
+  - {fileID: 5048640445056694634}
+--- !u!114 &5048640445056694634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40313c6082c7174449f988f19f36c2fa, type: 3}
+  m_Name: Rigid Noise
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -552, y: -216}
+  ports:
+    keys:
+    - noiseValue
+    values:
+    - _fieldName: noiseValue
+      _node: {fileID: 5048640445056694634}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: finalNoiseValue
+        node: {fileID: -7678233441550114467}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  seed: 0
+  strength: 1
+  numOctaves: 0
+  lacunarity: 2
+  persistance: 0.5
+  noiseScale: 2.5
+  noiseWeight: 5
+  weightMultiplier: 2.5
+  center: {x: 0, y: 0, z: 0}
+  floorOffset: 0
+  noiseValue: 0

@@ -13,6 +13,8 @@ public class WorldGenerator : MonoBehaviour
 
     Dictionary<Vector3Int, Chunk> chunks = new Dictionary<Vector3Int, Chunk>();
 
+    public WorldGenGraph worldGraph;
+
     [Header("Terrain Settings")]
     public float surfaceLevel = 0.5f;
     public bool smoothTerrain;
@@ -26,6 +28,9 @@ public class WorldGenerator : MonoBehaviour
     public ShapeGenerator shapeGenerator = new ShapeGenerator();
 
     public Erosion erosion;
+
+    public Material worldMaterial;
+
 
     private void Start()
     {
@@ -57,7 +62,7 @@ public class WorldGenerator : MonoBehaviour
 
         worldIsGenerated = true;
         Debug.Log(string.Format("{0} x {0} x {1} world generated.", numChunksWidth * GameData.ChunkWidth, numChunksHeight * GameData.ChunkHeight));
-        ErodeWorld();
+        //ErodeWorld();
         UpdateDirtyChunks();
     }
 

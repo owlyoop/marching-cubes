@@ -24,14 +24,6 @@ public class Chunk
     bool smoothTerrain;
     bool flatShading;
 
-    [Header("Noise Settings")]
-    public float scale = 12f;
-    public int numOctaves = 8;
-
-    [Header("Erosion Settings")]
-    public bool erosionEnabled;
-    public int iterations = 200;
-
 
     public Chunk(WorldGenerator world, Vector3Int _position, bool _smoothTerrain, bool _flatShading)
     {
@@ -48,7 +40,7 @@ public class Chunk
         meshFilter = chunkObject.AddComponent<MeshFilter>();
         meshCollider = chunkObject.AddComponent<MeshCollider>();
         meshRend = chunkObject.AddComponent<MeshRenderer>();
-        meshRend.material = Resources.Load<Material>("Materials/Terrain");
+        meshRend.material = world.worldMaterial;
         meshRend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.TwoSided;
 
 
@@ -97,9 +89,9 @@ public class Chunk
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
-        mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
+        mesh.RecalculateNormals();
     }
 
     public void GenerateTerrainMap()
@@ -121,7 +113,6 @@ public class Chunk
     }
 
     
-
     /// <summary>
     /// Raises or Digs the terrain at a single point. Will check if the point is on the chunk border
     /// </summary>
