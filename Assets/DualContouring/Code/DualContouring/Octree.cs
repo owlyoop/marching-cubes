@@ -23,7 +23,7 @@ using Code.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Octree
+public class Octree : MonoBehaviour
 {
     private static Color[] drawColors = new Color[]
     {
@@ -43,6 +43,8 @@ public class Octree
     public static float QEF_ERROR = 1e-6f;
     public static int QEF_SWEEPS = 4;
 
+    static WorldGenGraph worldGraph = FindObjectOfType<GameManager>().worldGraph;
+
     #region Readonly Variables
     public static readonly Vector3[] CHILD_MIN_OFFSETS =
 {
@@ -59,12 +61,12 @@ public class Octree
 
     // data from the original DC impl, drives the contouring process
 
-    public static readonly int[][] edgevmap = new int[12][] 
-{
-	new int[2]{2,4},new int[2]{1,5},new int[2]{2,6},new int[2]{3,7},	// x-axis 
-	new int[2]{0,2},new int[2]{1,3},new int[2]{4,6},new int[2]{5,7},	// y-axis
-	new int[2]{0,1},new int[2]{2,3},new int[2]{4,5},new int[2]{6,7}		// z-axis
-};
+    public static readonly int[][] edgevmap = new int[12][]
+      {
+        new int[2]{0,4},new int[2]{1,5},new int[2]{2,6},new int[2]{3,7},	// x-axis 
+	    new int[2]{0,2},new int[2]{1,3},new int[2]{4,6},new int[2]{5,7},	// y-axis
+	    new int[2]{0,1},new int[2]{2,3},new int[2]{4,5},new int[2]{6,7} // z-axis
+      };
 
     public static readonly int[] edgemask = { 5, 3, 6 };
 
@@ -514,6 +516,7 @@ public class Octree
         {
             Vector3 p = p0 + ((p1 - p0) * currentT);
             float density = Mathf.Abs(glm.Density_Func(p));
+            //float density = Mathf.Abs(worldGraph.endNode.GenerateTerrainMap(p));
             if (density < minValue)
             {
                 minValue = density;
@@ -692,7 +695,7 @@ public class Octree
         meshRenderer = go.AddComponent<MeshRenderer>();
         filter = go.AddComponent<MeshFilter>();
 
-        meshRenderer.sharedMaterial = Resources.Load("Default") as Material;
+        meshRenderer.sharedMaterial = GameObject.FindObjectOfType<GameManager>().terrain;
 
         Vector3[] vertArray = new Vector3[vertexBuffer.Count];
         Vector2[] uvs = new Vector2[vertexBuffer.Count];
@@ -714,6 +717,7 @@ public class Octree
         mesh.triangles = indexBuffer.ToArray();
         mesh.normals = normsArray;
         mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
 
         for (int i = 0; i < 8; i++)
         {
