@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
+    [HideInInspector]
     public int numChunksWidth = 16;
+    [HideInInspector]
+    public int numChunksLength = 16;
+    [HideInInspector]
     public int numChunksHeight = 4;
 
     bool worldIsGenerated = false;
@@ -15,19 +19,13 @@ public class WorldGenerator : MonoBehaviour
 
     public WorldGenGraph worldGraph;
 
+    //public enum IsoAlgorithm { MarchingCubes, DualContouring};
+    //public IsoAlgorithm isoSurfaceAlgorithm = IsoAlgorithm.MarchingCubes;
+
     [Header("Terrain Settings")]
-    public float surfaceLevel = 0.5f;
+    public float surfaceLevel = 0f; //Negative is air, Positive is depth.
     public bool smoothTerrain;
     public bool flatShading;
-
-    public ShapeSettings shapeSettings;
-    [HideInInspector]
-    public bool shapeSettingsFoldout;
-
-    [System.NonSerialized]
-    public ShapeGenerator shapeGenerator = new ShapeGenerator();
-
-    public Erosion erosion;
 
     public Material worldMaterial;
 
@@ -40,7 +38,12 @@ public class WorldGenerator : MonoBehaviour
 
     private void Initialize()
     {
-        shapeGenerator.UpdateSettings(shapeSettings);
+        worldGraph.GetEndNode();
+        worldGraph.endNode.GetAllNoiseNodes();
+        numChunksLength = worldGraph.GetNumChunksLength();
+        numChunksWidth = worldGraph.GetNumChunksWidth();
+        numChunksHeight = worldGraph.GetNumChunksHeight();
+        //isoSurfaceAlgorithm = worldGraph.GetIsoSurfaceType();
     }
 
     void Generate()
@@ -195,16 +198,5 @@ public class WorldGenerator : MonoBehaviour
     {
         Initialize();
         Generate();
-    }
-
-    public void ErodeWorld()
-    {
-        
-        erosion.Erode(erosion.numErosionInterations);
-    }
-
-    public void OnShapeSettingsUpdated()
-    {
-
     }
 }

@@ -7,8 +7,6 @@ public static class GameData
     public static int ChunkWidth = 16;
     public static int ChunkHeight = 16;
 
-    static Noise noise = new Noise();
-
     public static Vector3Int[] CornerTable = new Vector3Int[8] {
 
         new Vector3Int(0, 0, 0),

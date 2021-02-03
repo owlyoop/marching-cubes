@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 
 	OctreeNode root = null;
 
+    public Material terrain;
+    public WorldGenGraph worldGraph;
+
 	// octreeSize must be a power of two!
 	const int octreeSize = 64;
 

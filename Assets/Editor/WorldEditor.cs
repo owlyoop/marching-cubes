@@ -30,7 +30,7 @@ public class WorldEditor : Editor
             world.DestroyWorldInEditor();
         }
 
-        DrawSettingsEditor(world.shapeSettings, world.OnShapeSettingsUpdated, ref world.shapeSettingsFoldout, ref shapeEditor);
+        //DrawSettingsEditor(world.shapeSettings, world.OnShapeSettingsUpdated, ref world.shapeSettingsFoldout, ref shapeEditor);
     }
 
     void DrawSettingsEditor(Object settings, System.Action onSettingsUpdated, ref bool foldout, ref Editor editor)

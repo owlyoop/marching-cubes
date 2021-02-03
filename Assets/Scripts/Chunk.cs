@@ -12,11 +12,12 @@ public class Chunk
 
     public Vector3Int chunkPosition;
 
-    List<Vector3> vertices = new List<Vector3>();
-    List<int> triangles = new List<int>();
 
     int width { get { return GameData.ChunkWidth; } }
     int height { get { return GameData.ChunkHeight; } }
+
+    List<Vector3> vertices = new List<Vector3>();
+    List<int> triangles = new List<int>();
 
     public float[,,] terrainMap;
 
@@ -64,8 +65,8 @@ public class Chunk
                     float[] cube = new float[8];
                     for (int i = 0; i < 8; i++)
                     {
-                        Vector3Int corner = new Vector3Int(x, y, z) + GameData.CornerTable[i];
-                        cube[i] = terrainMap[corner.x, corner.y, corner.z];
+                        //Vector3Int corner = new Vector3Int(x, y, z) + GameData.CornerTable[i];
+                        cube[i] = terrainMap[x + GameData.CornerTable[i].x, y + GameData.CornerTable[i].y, z + GameData.CornerTable[i].z];
                     }
 
                     //Pass value into MarchCube
@@ -104,7 +105,7 @@ public class Chunk
             {
                 for (int y = 0; y < height + 1; y++)
                 {
-                    thisPoint = world.shapeGenerator.CalculateTerrain(new Vector3(x + chunkPosition.x, y + chunkPosition.y, z + chunkPosition.z));
+                    thisPoint = world.worldGraph.endNode.GenerateTerrainMap(new Vector3(x + chunkPosition.x, y + chunkPosition.y, z + chunkPosition.z));
                     terrainMap[x, y, z] = thisPoint;
                     //Debug.Log((x * world.numChunksWidth).ToString() + " " + (y * world.numChunksHeight).ToString() + " " + (z * world.numChunksWidth).ToString() + " " + thisPoint.ToString());
                 }
@@ -123,8 +124,8 @@ public class Chunk
     {
         float newTerrainValue;
         if (isDigging)
-            newTerrainValue = amount;
-        else newTerrainValue = -amount;
+            newTerrainValue = -amount;
+        else newTerrainValue = amount;
 
         Vector3Int tMap = new Vector3Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), Mathf.RoundToInt(pos.z));
         tMap -= chunkPosition;
@@ -356,7 +357,7 @@ public class Chunk
         int index = 0;
         for (int i = 0; i < 8; i++)
         {
-            if (cube[i] > world.surfaceLevel)
+            if (cube[i] < world.surfaceLevel)
                 index |= 1 << i;
         }
 
